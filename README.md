@@ -101,3 +101,31 @@ Possible future improvements include:
 - Do not commit AWS access keys, secret keys, or private SSH keys.
 - Do not commit Terraform state files or secret variable values.
 - Keep AWS credentials outside the repository.
+
+
+## Architecture Diagram
+
+This diagram represents the resources defined in Terraform. It describes the intended configuration, not proof that a VPC has been deployed in AWS.
+
+```mermaid
+flowchart TD
+    Operator[Cloud administrator]
+    TF[Terraform configuration<br/>main.tf]
+    Provider[AWS provider<br/>us-east-1]
+    VPC[AWS VPC<br/>CIDR: 10.20.0.0/16]
+    DNS[DNS support enabled<br/>DNS hostnames enabled]
+    Outputs[Terraform outputs<br/>VPC ID, CIDR block, ARN]
+
+    Operator --> TF
+    TF --> Provider
+    Provider --> VPC
+    VPC --> DNS
+    VPC --> Outputs
+```
+
+
+## Validation Screenshot
+
+![Terraform VPC validation](docs/images/vpc-terraform-validation.png)
+
+This screenshot shows the Terraform formatting and configuration validation results. Validation does not prove that resources have been deployed in AWS.
